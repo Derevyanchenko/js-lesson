@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<input type="text" id="age" value="">
+	<input type="text" id="name" value="">
+	<input type="text" id="surname" value="">
+
+	<div>
+		
+		<p>your age: <b class="your-age">_</b> years</p>
+		<p>your name: <b class="your-name"></b></p>
+		<p>your surname: <b class="your-surname"></b></p>
+
+
+	</div>
+<script>
+		
+	window.addEventListener("DOMContentLoaded", function() {
+
+
+
+		let age  		 = document.getElementById('age'),
+			name 		 = document.getElementById('name'),
+			surname 	 = document.getElementById('surname'),
+			your_age 	 = document.querySelector(".your-age"),
+			your_name 	 = document.querySelector(".your-name"),
+			your_surname = document.querySelector(".your-surname");
+
+			age.addEventListener("change", () => {
+				your_age.textContent = age.value;
+			});
+
+			name.addEventListener("change", () => {
+				your_name.textContent = name.value;
+			});
+
+			surname.addEventListener("change", () => {
+				your_surname.textContent = surname.value;
+			});
+
+
+
+	});
+
+</script>
+	
+</body>
+</html>

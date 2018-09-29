@@ -42,7 +42,6 @@ window.addEventListener("DOMContentLoaded", function() {
 	let more    = document.querySelector(".more"),
 		close   = document.querySelector(".popup-close"),
 		body    = document.querySelector("body"),
-		more_btn = document.querySelector(".description-btn"),
 		overlay = document.querySelector(".overlay");
 
 	more.addEventListener("click", function() {
@@ -50,14 +49,18 @@ window.addEventListener("DOMContentLoaded", function() {
 		body.style.overflow = "hidden";
 	});
 
-	more_btn.addEventListener("click", function() {
-		overlay.style.display = "block";
-		body.style.overflow = "hidden";
-	});
-
 	close.addEventListener("click", function() {
 		overlay.style.display = "none";
 		body.style.overflow = "";
+	});
+
+	let info = document.querySelector(".info");
+
+	info.addEventListener("click", function(event) {
+		if (event.target.className == "description-btn") {
+			overlay.style.display = "block";
+			body.style.overflow = "hidden";
+		}
 	});
 
 });

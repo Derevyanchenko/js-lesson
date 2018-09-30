@@ -168,6 +168,53 @@ window.addEventListener("DOMContentLoaded", function() {
 			}
 		});
 
+	// калькулятор
+
+	let persons 	 = document.getElementsByClassName("counter-block-input")[0],
+		days 		 = document.getElementsByClassName("counter-block-input")[1],
+		place 		 = document.getElementById("select"),
+		result_value = document.querySelector(".counter-total"),
+		persons_sum  = 0,
+		days_sum 	 = 0,
+		result 		 = 0;
+
+	result_value.innerHTML = result;
+
+	persons.addEventListener("change", function() {
+		persons_sum =+ this.value;
+		result = (persons_sum + days_sum) * 4000;
+		if(days.value == "") {
+			result_value.innerHTML = 0;
+		}
+		else {
+			result_value.innerHTML = result;
+		}
+	});
+
+	days.addEventListener("change", function() {
+		days_sum =+ this.value;
+		result = (persons_sum + days_sum) * 4000;
+		if (persons.value == "") {
+			result_value.innerHTML = 0;
+		}
+		else {
+			result_value.innerHTML = result;
+		}
+	});
+
+	place.addEventListener("change", function() {
+		if(days.value == "" || persons.value == "") {
+			result_value.innerHTML = 0;
+		}
+		else {
+			let a = result;
+			result_value.innerHTML = a * this.options[this.selectedIndex].value;
+		}
+	});
+
+
+
+
 
 
 });

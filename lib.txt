@@ -1,0 +1,69 @@
+  $pdo = new PDO("mysql:host=localhost; dbname=todo", root, "");	// подключение к бд
+  $sql = "SELECT * FROM `tasks`";	// формируем запрос
+  $statement = $pdo->prepare($sql);	// подготовили запрос к выполнению
+  $result = $statement->execute();	// выполнили запрос ( возвращает true|false)
+  $tasks = $statement->fetchAll(PDO::FETCH_ASSOC);	// преобразовуем в ассоц массив
+
+ class query_builder
+ {
+ 	public $pdo;
+
+ 	function __construct()
+ 	{
+ 		$this->$pdo = new PDO("mysql:host=localhost; dbname=todo", root, "");
+ 	}
+
+ 	function get_all($table) {
+	    $sql = "SELECT * FROM $table";
+	    $statement = $this->$pdo->prepare($sql);
+	    $result = $statement->execute();
+	    $tasks = $statement->fetchAll();
+	    return $tasks;
+	 }
+
+ } 
+
+В index.php:
+
+ require 'database/queryBuilder.php';
+
+  $db = new query_builder;
+  $tasks = $db->get_all("tasks");
+
+// ссылка на текущую статью (передает по ИД)
+
+<a href="single.php?id=<?php echo $task["id"]; ?>" class="btn btn-primary">view</a>
+
+// получаем текущую статью по id
+
+    $pdo = new PDO("mysql:host=localhost; dbname=todo", root, "");
+    $sql = "SELECT * FROM tasks WHERE id=:id";
+    $statement = $pdo->prepare($sql);
+    $statement->bindParam(":id", $_GET["id"]);
+    $statement->execute();
+    $task = $statement->fetch(PDO::FETCH_ASSOC);
+
+// выносим в функцию и делаем универстальной
+
+function get_current($table) {
+        $sql = "SELECT * FROM $table WHERE id=:id";
+        $statement = $this->$pdo->prepare($sql);
+        $statement->bindParam(":id", $_GET["id"]);
+        $statement->execute();
+        $task = $statement->fetch(PDO::FETCH_ASSOC);
+        return $task;
+    }
+
+// добавление в базу данных
+
+function add($table) {
+	$sql = "INSERT INTO $table (title, text) VALUES (:title, :text)";
+	$statement = $this->$pdo->prepare($sql);
+	$statement->bindParam(":title", $_POST["title"]);
+	$statement->bindParam(":text", $_POST["text"]);
+	$statement->execute();
+	header("Location: /"); exit;
+    }
+
+
+
